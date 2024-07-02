@@ -34,10 +34,13 @@ return { -- Collection of various small independent plugins/modules
 			return "%2l:%-2v"
 		end
 
-
 		require("mini.comment").setup()
 		require("mini.bracketed").setup()
-		require("mini.indentscope").setup()
+		require("mini.indentscope").setup({ draw = {
+			animation = function()
+				return 0
+			end,
+		} })
 		require("mini.move").setup()
 		require("mini.pairs").setup()
 		require("mini.tabline").setup()

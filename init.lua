@@ -143,7 +143,38 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- Automatically install LSPs and related tools to stdpath for Neovim
-			{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
+			{
+				"williamboman/mason.nvim",
+				config = true,
+				init = function(_)
+					local pylsp = require("mason-registry").get_package("python-lsp-server")
+					pylsp:on("install:success", function()
+						local function mason_package_path(package)
+							local path = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/" .. package)
+							return path
+						end
+
+						local path = mason_package_path("python-lsp-server")
+						local command = path .. "/venv/bin/pip"
+						local args = {
+							"install",
+							"-U",
+							"python-lsp-isort",
+							"python-lsp-ruff",
+							"pyls-memestra",
+							"pylsp-mypy",
+						}
+
+						require("plenary.job")
+							:new({
+								command = command,
+								args = args,
+								cwd = path,
+							})
+							:start()
+					end)
+				end,
+			}, -- NOTE: Must be loaded before dependants
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
@@ -317,8 +348,17 @@ require("lazy").setup({
 							plugins = {
 								autopep8 = { enabled = false },
 								yapf = { enabled = false },
-								ruff = { enabled = true },
-								pyls_isort = { enabled = true },
+								black = { enabled = false },
+								pyflakes = { enabled = false },
+								pycodestyle = { enabled = false },
+								pylint = { enabled = false },
+								ruff = { enabled = false },
+								pyls_isort = { enabled = false, formatEnabled = false },
+								mypy = {
+									enabled = false,
+									live_mode = false,
+									strict = false,
+								},
 							},
 						},
 					},
@@ -368,7 +408,7 @@ require("lazy").setup({
 				function()
 					require("conform").format({
 						async = true,
-						lsp_fallback = true,
+						lsp_fallback = false,
 					})
 				end,
 				mode = "",
@@ -381,7 +421,7 @@ require("lazy").setup({
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
+				local disable_filetypes = { c = true, cpp = true, python = true }
 				return {
 					timeout_ms = 500,
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -390,10 +430,10 @@ require("lazy").setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
-				python = { "isort" },
+				-- python = { "isort" },
 				--
 				-- You can use a sub-list to tell conform to run *until* a formatter
-				-- is found.
+				-- 	-- is found.
 				-- javascript = { { "prettierd", "prettier" } },
 			},
 		},

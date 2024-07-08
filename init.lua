@@ -345,8 +345,12 @@ require("lazy").setup({
 				pylsp = {
 					settings = {
 						pylsp = {
+							configurationSources = { "flake8" },
 							plugins = {
-								flake8 = { enabled = true, config = { ignore = { "E501", "W503" } } },
+								flake8 = {
+									enabled = true,
+									ignore = { "E501", "W503" },
+								},
 								autopep8 = { enabled = false },
 								yapf = { enabled = false },
 								black = { enabled = false },

@@ -348,7 +348,7 @@ require("lazy").setup({
 							configurationSources = { "flake8" },
 							plugins = {
 								flake8 = {
-									enabled = true,
+									enabled = false,
 									ignore = { "E501", "W503" },
 								},
 								autopep8 = { enabled = false },
@@ -357,7 +357,7 @@ require("lazy").setup({
 								pyflakes = { enabled = false },
 								pycodestyle = { enabled = false },
 								pylint = { enabled = false },
-								ruff = { enabled = false },
+								ruff = { enabled = true },
 								pyls_isort = { enabled = false, formatEnabled = false },
 								mypy = {
 									enabled = false,

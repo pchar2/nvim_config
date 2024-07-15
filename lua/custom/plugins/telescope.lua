@@ -46,6 +46,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
 					-- layout_config = { mirror=true }, -- mirror preview pane
 				},
 			},
+			pickers = {
+				find_files = { find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" } },
+			},
 		})
 
 		-- Enable Telescope extensions if they are installed

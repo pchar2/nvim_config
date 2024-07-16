@@ -1,4 +1,21 @@
 -- https://github.com/nvim-telescope/telescope.nvim
+--
+local select_one_or_multi = function(prompt_bufnr)
+	-- from https://github.com/nvim-telescope/telescope.nvim/issues/1048#issuecomment-1407046929
+	local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+	local multi = picker:get_multi_selection()
+	if not vim.tbl_isempty(multi) then
+		require("telescope.actions").close(prompt_bufnr)
+		for _, j in pairs(multi) do
+			if j.path ~= nil then
+				vim.cmd(string.format("%s %s", "edit", j.path))
+			end
+		end
+	else
+		require("telescope.actions").select_default(prompt_bufnr)
+	end
+end
+
 return { -- Fuzzy Finder (files, lsp, etc)
 	"nvim-telescope/telescope.nvim",
 	event = "VimEnter",
@@ -44,6 +61,15 @@ return { -- Fuzzy Finder (files, lsp, etc)
 						},
 					},
 					-- layout_config = { mirror=true }, -- mirror preview pane
+				},
+			},
+			defaults = {
+				mappings = {
+					i = {
+						["<C-w>"] = actions.delete_buffer + actions.move_to_top,
+						["<esc>"] = actions.close,
+						["<CR>"] = select_one_or_multi,
+					},
 				},
 			},
 			pickers = {

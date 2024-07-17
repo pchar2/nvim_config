@@ -43,7 +43,6 @@ return { -- Collection of various small independent plugins/modules
 		} })
 		require("mini.move").setup()
 		require("mini.pairs").setup()
-		require("mini.tabline").setup()
 		require("mini.trailspace").setup()
 		require("mini.cursorword").setup()
 	end,

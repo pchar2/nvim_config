@@ -1,4 +1,3 @@
--- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
@@ -68,6 +67,7 @@ vim.opt.scrolloff = 10
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
+vim.keymap.set("i", "<C-k>", "<C-o>de")
 vim.keymap.set("n", "<leader>bd", "<cmd>%bd|e#|bd#<cr>|'", { desc = "Close all buffers except current" })
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode

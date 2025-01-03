@@ -73,7 +73,22 @@ return { -- Fuzzy Finder (files, lsp, etc)
 				},
 			},
 			pickers = {
-				find_files = { find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" } },
+				find_files = {
+					find_command = {
+						"rg",
+						"--files",
+						"--hidden",
+					},
+					layout_config = {
+						vertical = {
+							width = 0.95,
+						},
+						horizontal = {
+							width = 0.95,
+						},
+					},
+					path_display = { "smart" },
+				},
 			},
 		})
 
@@ -81,6 +96,13 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension("live_grep_args"))
 		pcall(require("telescope").load_extension, "ui-select")
+		pcall(require("telescope").load_extension("aerial"))
+		vim.keymap.set(
+			"n",
+			"<leader>so",
+			":lua require('telescope').extensions.aerial.aerial()<CR>",
+			{ desc = "[S]earch [O]utliner" }
+		)
 
 		-- See `:help telescope.builtin`
 		local builtin = require("telescope.builtin")

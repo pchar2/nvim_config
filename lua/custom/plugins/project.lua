@@ -5,12 +5,9 @@ return {
 			-- your configuration comes here
 			-- or leave it empty to use the default settings
 			-- refer to the configuration section below
-			patterns = {
-				"=c:/Users/paul.charmoille/unit-image/source/",
-				"=c:/Users/paul.charmoille/AppData/Local/nvim",
-			},
+			detection_methods = { "pattern", "lsp" },
 			exclude_dirs = { "c:" },
-			-- patterns = { ">source" },
+			silent_chdir = "false",
 			require("telescope").load_extension("projects"),
 		})
 	end,

@@ -162,7 +162,6 @@ require("lazy").setup({
 						local args = {
 							"install",
 							"-U",
-							"python-lsp-isort",
 							"python-lsp-ruff",
 							"pyls-memestra",
 							"pylsp-mypy",
@@ -348,26 +347,18 @@ require("lazy").setup({
 				pylsp = {
 					settings = {
 						pylsp = {
-							configurationSources = { "flake8" },
 							plugins = {
-								flake8 = {
-									enabled = false,
-									ignore = { "E501", "W503" },
-								},
-								autopep8 = { enabled = false },
-								yapf = { enabled = false },
-								black = { enabled = false },
-								pyflakes = { enabled = false },
-								pycodestyle = { enabled = false },
-								pylint = { enabled = false },
-								ruff = { enabled = true },
-								pyls_isort = { enabled = false, formatEnabled = false },
-								mypy = {
-									enabled = false,
-									live_mode = false,
-									strict = false,
+								ruff = {
+									enabled = true,
 								},
 							},
+							pylsp_mypy = {
+								enabled = true,
+								strict = true,
+								report_progress = true,
+							},
+							mypy = { enabled = false },
+							jedi_completion = { fuzzy = true },
 						},
 					},
 				},
@@ -586,6 +577,8 @@ require("lazy").setup({
 		},
 	},
 })
+
+-- require("after.netrw")
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

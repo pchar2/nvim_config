@@ -105,6 +105,9 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 
 vim.opt.colorcolumn = "79"
 
+-- Paste without losing the current register
+vim.keymap.set("v", "<leader>p", '"_dp', { desc = "Paste without losing the current register" })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -353,14 +356,23 @@ require("lazy").setup({
 								},
 							},
 							pylsp_mypy = {
-								enabled = true,
+								enabled = false,
 								strict = true,
 								report_progress = true,
+								["follow-imports"] = "normal",
+								-- overrides = {
+								-- 	"true",
+								-- 	"--follow-imports",
+								-- 	"silent",
+								-- },
 							},
-							mypy = { enabled = false },
-							jedi_completion = { fuzzy = true },
+							jedi_completion = { fuzzy = "true" },
 						},
 					},
+					flags = {
+						debounce_text_changes = 100,
+					},
+					capabilities = capabilities,
 				},
 			}
 
@@ -541,8 +553,11 @@ require("lazy").setup({
 				}),
 				sources = {
 					{ name = "nvim_lsp" },
+					{ name = "nvim_lsp_signature_help" },
 					{ name = "luasnip" },
+					{ name = "buffer" },
 					{ name = "path" },
+					{ name = "diag-codes" },
 				},
 			})
 		end,

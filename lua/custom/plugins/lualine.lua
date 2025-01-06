@@ -16,7 +16,8 @@ return {
 	config = function()
 		require("lualine").setup({
 			-- options = { theme = "nightfly" },
-			options = { theme = "gruvbox" },
+			-- options = { theme = "gruvbox" },
+			options = { theme = "gruvbox-material" },
 			sections = {
 				lualine_b = {
 					{ "branch" },

@@ -14,4 +14,7 @@ return {
 			},
 		},
 	},
+	config = function()
+		vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>", { desc = "Zen mode" })
+	end,
 }

@@ -2,19 +2,21 @@
 return {
 	"folke/zen-mode.nvim",
 	opts = {
-		-- your configuration comes here
-		-- or leave it empty to use the default settings
-		-- refer to the configuration section below
-		width = 180,
+		window = {
+			width = 0.90,
+		},
 		plugins = {
-			-- disable some global vim options (vim.o...)
-			-- comment the lines to not apply the options
 			options = {
 				laststatus = 3, -- turn on the statusline in zen mode
 			},
+			lualine = { enabled = true }, -- enable to start Twilight when zen mode opens
 		},
 	},
 	config = function()
-		vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>", { desc = "Zen mode" })
+		local zen_mode = require("zen-mode")
+		zen_mode.setup()
+		vim.keymap.set("n", "<leader>z", function()
+			zen_mode.toggle()
+		end, { desc = "Zen mode" })
 	end,
 }

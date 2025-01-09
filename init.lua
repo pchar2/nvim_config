@@ -77,8 +77,8 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "[E]rror messages" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "[Q]uickfix list" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -224,10 +224,6 @@ require("lazy").setup({
 					--  the definition of its *type*, not where it was *defined*.
 					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
 
-					-- Fuzzy find all the symbols in your current document.
-					--  Symbols are things like variables, functions, types, etc.
-					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-
 					-- Fuzzy find all the symbols in your current workspace.
 					--  Similar to document symbols, except searches over your entire project.
 					map(
@@ -353,6 +349,7 @@ require("lazy").setup({
 							plugins = {
 								ruff = {
 									enabled = true,
+									formatEnabled = true,
 								},
 							},
 							pylsp_mypy = {
@@ -419,10 +416,9 @@ require("lazy").setup({
 				function()
 					require("conform").format({
 						async = true,
-						lsp_fallback = false,
+						lsp_fallback = true,
 					})
 				end,
-				mode = "",
 				desc = "[F]ormat buffer",
 			},
 		},
@@ -440,12 +436,13 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
-				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort" },
-				--
-				-- You can use a sub-list to tell conform to run *until* a formatter
-				-- 	-- is found.
-				-- javascript = { { "prettierd", "prettier" } },
+				python = function(bufnr)
+					if require("conform").get_formatter_info("ruff_format", bufnr).available then
+						return { "ruff_organize_imports", "ruff_format", lsp_fallback = "never" }
+					else
+						return {}
+					end
+				end,
 			},
 		},
 	},
@@ -592,8 +589,6 @@ require("lazy").setup({
 		},
 	},
 })
-
--- require("after.netrw")
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

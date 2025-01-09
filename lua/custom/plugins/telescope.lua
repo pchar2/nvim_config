@@ -118,6 +118,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
 			":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
 			{ desc = "[S]earch by [G]rep" }
 		)
+		local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
+		vim.keymap.set("n", "<leader>ug", live_grep_args_shortcuts.grep_word_under_cursor, { desc = "[G]rep cursor" })
 		vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 		vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 		vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })

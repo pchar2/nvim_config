@@ -6,20 +6,18 @@ return { -- Useful plugin to show you pending keybinds.
 
 		-- Document existing key chains
 		require("which-key").add({
-			{ "", desc = "<leader>c_", hidden = true },
 			{ "", group = "[C]ode" },
-			{ "<leader>d", group = "[D]ocument" },
-			{ "<leader>d_", hidden = true },
+			{ "<leader>b", group = "[B]uffers" },
+			{ "<leader>c", group = "Git [C]onflict" },
+			{ "<leader>D", group = "[D]ocument" },
 			{ "<leader>h", group = "Git [H]unk" },
-			{ "<leader>h_", hidden = true },
 			{ "<leader>r", group = "[R]ename" },
-			{ "<leader>r_", hidden = true },
 			{ "<leader>s", group = "[S]earch" },
-			{ "<leader>s_", hidden = true },
-			{ "<leader>t", group = "[T]oggle" },
-			{ "<leader>t_", hidden = true },
+			{ "<leader>t", group = "[T]rouble" },
+			{ "<leader>u", group = "C[U]rsor" },
+			{ "<leader>v", group = "[V]irtualEnv" },
 			{ "<leader>w", group = "[W]orkspace" },
-			{ "<leader>w_", hidden = true },
+			{ "<leader>y", group = "[Y]azi" },
 		})
 	end,
 }

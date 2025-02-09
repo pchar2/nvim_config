@@ -3,7 +3,7 @@ return {
 	lazy = false,
 	config = function()
 		require("themery").setup({
-			themes = { "gruvbox", "tokyonight", "everforest" },
+			themes = { "gruvbox", "tokyonight", "everforest", "catppuccin" },
 			livePreview = true,
 		})
 	end,

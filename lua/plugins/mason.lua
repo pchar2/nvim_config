@@ -11,13 +11,13 @@ return {
 				end
 
 				local path = mason_package_path("python-lsp-server")
-				local command = path .. "/venv/bin/pip"
+				local command = path .. "/venv/Scripts/pip"
 				local args = {
 					"install",
 					"-U",
 					"python-lsp-ruff",
 					"pyls-memestra",
-					"pylsp-mypy",
+					-- "pylsp-mypy",
 				}
 
 				require("plenary.job")

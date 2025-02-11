@@ -9,6 +9,7 @@ return { -- Useful plugin to show you pending keybinds.
 			{ "", group = "[C]ode" },
 			{ "<leader>b", group = "[B]uffers" },
 			{ "<leader>c", group = "Git [C]onflict" },
+			{ "<leader>d", group = "[d]ebug" },
 			{ "<leader>D", group = "[D]ocument" },
 			{ "<leader>h", group = "Git [H]unk" },
 			{ "<leader>r", group = "[R]ename" },

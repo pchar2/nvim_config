@@ -18,6 +18,7 @@ return {
 			vim.keymap.set("n", "<leader>cn", "<cmd>GitConflictChooseNone<cr>"),
 			vim.keymap.set("n", "<leader>cc", "<cmd>GitConflictNextConflict<cr>"),
 			vim.keymap.set("n", "<leader>cp", "<cmd>GitConflictPrevConflict<cr>"),
+			vim.keymap.set("n", "<leader>cl", "<cmd>GitConflictListQf<cr>"),
 			vim.api.nvim_set_hl(
 				vim.api.nvim_get_hl_id_by_name("GitConflictCurrent"),
 				"Normal",

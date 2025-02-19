@@ -89,12 +89,12 @@ return { -- Autocompletion
 				end, { "i", "s" }),
 			}),
 			sources = {
-				-- { name = "path" },
-				-- { name = "buffer" },
 				{ name = "nvim_lsp" },
 				{ name = "nvim_lsp_signature_help" },
-				-- { name = "diag-codes" },
 				{ name = "luasnip" },
+				{ name = "path" },
+				{ name = "buffer" },
+				{ name = "diag-codes" },
 			},
 		})
 	end,
